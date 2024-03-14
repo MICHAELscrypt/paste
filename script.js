@@ -49,13 +49,18 @@ async function decryptString(encrypted, iv, key) {
 }
 
 // export key to base64
+// only export part of the JWK key, to make whole thing shorter
+// reuse everything of JWK that stays the same
 async function exportKey(key) {
     // Export the key in the JWK format
     const exported = await window.crypto.subtle.exportKey("jwk", key);
+    console.log(exported);
     // Convert the exported key to a string (e.g., JSON)
     const exportedAsString = JSON.stringify(exported);
+    console.log(exportedAsString);
     // Encode the string to base64
     const encoded = btoa(exportedAsString);
+    console.log(encoded);
     return encoded;
 }
 
@@ -70,7 +75,7 @@ async function importKey(encoded) {
         importedKey,
         {
             name: "AES-GCM",
-            length: 256,
+            length: 128,
         },
         true,
         ["encrypt", "decrypt"]
@@ -80,22 +85,22 @@ async function importKey(encoded) {
 
 
 // Example usage
-(async () => {
-    const key = await generateKey(); // Generate a key
-    console.log("Key: ",key);
-    const dataToEncrypt = "Hello, world!"; // Data to encrypt
-    const { encrypted, iv } = await encryptString(dataToEncrypt, key); // Encrypt the data
-    console.log("Encrypted data: ", encrypted);
-    console.log("IV: ", iv);
-    const decrypted = await decryptString(encrypted, iv, key); // Decrypt the data
-    console.log("Decrypted:", decrypted); // Log the decrypted data
-})();
+// (async () => {
+//     const key = await generateKey(); // Generate a key
+//     console.log("Key: ",key);
+//     const dataToEncrypt = "Hello, world!"; // Data to encrypt
+//     const { encrypted, iv } = await encryptString(dataToEncrypt, key); // Encrypt the data
+//     console.log("Encrypted data: ", encrypted);
+//     console.log("IV: ", iv);
+//     const decrypted = await decryptString(encrypted, iv, key); // Decrypt the data
+//     console.log("Decrypted:", decrypted); // Log the decrypted data
+// })();
 
 
 // Use the previously defined `encryptString` and `decryptString` functions
 
 (async () => {
-    const key = await generateKey(); // Generate a key
+    let key = await generateKey(); // Generate a key
     const exportedKey = await exportKey(key); // Export the key
     console.log("Exported Key:", exportedKey); // Log the exported key
 
@@ -116,4 +121,4 @@ const userInput = "Hello, world!"; // This should be replaced with actual user i
 exampleFunc(userInput);
 
 // Return the querystring part of a URL:
-let query = location.search;
+let keyBase64 = location.search;
