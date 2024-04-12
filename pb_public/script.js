@@ -54,7 +54,7 @@ async function decryptString(encrypted, iv, key) {
 async function exportKey(key) {
     // Export the key in the JWK format
     const exported = await window.crypto.subtle.exportKey("jwk", key);
-    console.log(exported);
+    console.log(exported.k);
     // Convert the exported key to a string (e.g., JSON)
     const exportedAsString = JSON.stringify(exported);
     console.log(exportedAsString);
