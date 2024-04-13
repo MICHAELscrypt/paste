@@ -4,9 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        body {
+            max-width: 800px;
+            margin: auto;
+            padding: 10px;
+        }
+        textarea {
+            max-width: 98%;
+        }
+        hr {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        footer {
+            font-size: smaller;
+        }
+    </style>
+
 </head>
 <body>
+    <div id="text"></div>
+    <textarea id="textarea" name="textarea" rows="10" cols="120" placeholder="Paste your text here . . . "></textarea>
+    <br>
+    <button id="submit-btn">Submit</button>
     <!-- user pocketbase.io for storage -->
     <script src="script.js"></script>
+    <hr>
+    <footer>Built by <a href="https://x.com/MichaelScrypt">@MichaelScrypt</a></footer>
 </body>
 </html>
