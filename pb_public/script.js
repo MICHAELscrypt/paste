@@ -144,7 +144,7 @@ async function encrypt_and_POST(dataToEncrypt = "Hello, world!") {
     };
 
     const post_response = await postData('/api/collections/posts/records', encrypted_data);
-    let urlOfNewPaste = "http://" + window.location.host + "#" + "i=" + post_response.id + "&k=" + exportedKey;
+    let urlOfNewPaste = "https://" + window.location.host + "#" + "i=" + post_response.id + "&k=" + exportedKey;
     console.log(urlOfNewPaste);
     return urlOfNewPaste;
 }
@@ -156,7 +156,7 @@ async function getTextAndDecrypt() {
     let key_of_paste = params.get('k');
     let id_of_paste = params.get('i');
 
-    const apiUrl = 'http://localhost:8090/api/collections/posts/records/' + id_of_paste; // URL of the API you want to access
+    const apiUrl = 'https://' + window.location.host + '/api/collections/posts/records/' + id_of_paste; // URL of the API you want to access
 
     const { encrypted_json, iv_json } = await fetchData(apiUrl);
 
